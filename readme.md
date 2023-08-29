@@ -6,7 +6,7 @@
 
 ### La clase ProductManager se encuentra en src/models
 
-### Las rutas estan definidas en el app.js y los metodos de la clase ProductManager se llaman desde aqui
+### Las rutas estan definidas en el src/app.js y los metodos de la clase ProductManager se llaman desde aqui
 
 ### Para correrlo, ejecutar nodemon app.js para que levante el servidor local en el puerto 8080
 
