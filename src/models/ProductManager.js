@@ -5,7 +5,6 @@ class ProductManager {
     this.path = filePath;
     this.products = [];
     this.productIdCounter = 1;
-    this.loadFileProducts();
   }
 
   async loadFileProducts() {
