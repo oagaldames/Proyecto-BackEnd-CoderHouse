@@ -12,5 +12,5 @@ app.listen(PORT, () => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Monta las rutas de productos en la ruta /api/products
 app.use("/api/products", productRouter);
+app.use("/api/products/:pid", productRouter);
