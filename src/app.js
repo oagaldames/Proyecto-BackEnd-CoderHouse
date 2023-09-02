@@ -1,6 +1,8 @@
 import express from "express";
 
 import { productRouter } from "./routes/products.js";
+import { cartsRouter } from "./routes/carts.js";
+
 const app = express();
 
 // Iniciar el servidor en el puerto 8080
@@ -14,3 +16,4 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/products", productRouter);
 app.use("/api/products/:pid", productRouter);
+app.use("/api/carts", cartsRouter);

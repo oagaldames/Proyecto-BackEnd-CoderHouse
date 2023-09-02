@@ -73,6 +73,7 @@ class ProductManager {
   async getProductById(id) {
     await this.loadFileProducts();
     try {
+      console.log(id);
       const product = this.products.find((p) => p.id === id);
       if (!product) {
         return null;
