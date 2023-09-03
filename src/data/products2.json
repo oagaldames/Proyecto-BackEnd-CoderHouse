@@ -1,0 +1,447 @@
+[
+  {
+    "id": 1,
+    "status": true,
+    "title": "producto 1",
+    "description": "Descripcion Producto 1",
+    "code": "P0001",
+    "price": 100,
+    "stock": 10,
+    "category": "Categoria5",
+    "thumbnail": ["ruta/img1-1", "ruta/img1-2"]
+  },
+  {
+    "id": 2,
+    "status": true,
+    "title": "producto 2 cambiado dos veces",
+    "description": "Descripcion Producto cambiado",
+    "code": "P0002",
+    "price": 25,
+    "stock": 50,
+    "category": "Categoria",
+    "thumbnail": ["ruta/img2-1", "ruta/img2-2"]
+  },
+  {
+    "id": 3,
+    "status": true,
+    "title": "producto cambiado3",
+    "description": "Descripcion Producto 3cambiado",
+    "code": "P0003",
+    "price": 500,
+    "stock": 10,
+    "category": "Categoria3",
+    "thumbnail": ["ruta/img3-1", "ruta/img3-2"]
+  },
+  {
+    "id": 4,
+    "status": true,
+    "title": "producto 4",
+    "description": "Descripcion Producto 4",
+    "code": "P0004",
+    "price": 900,
+    "stock": 90,
+    "category": "Categoria4",
+    "thumbnail": ["ruta/img4-1", "ruta/img4-2"]
+  },
+  {
+    "id": 5,
+    "status": true,
+    "title": "producto 6",
+    "description": "Descripcion Producto 6",
+    "code": "P0006",
+    "price": 100,
+    "stock": 10,
+    "category": "Categoria6",
+    "thumbnail": ["ruta/img1-1", "ruta/img1-2"]
+  },
+  {
+    "id": 6,
+    "status": true,
+    "title": "producto 6",
+    "description": "Descripcion Producto 6",
+    "code": "P0007",
+    "price": 100,
+    "stock": 10,
+    "category": "Categoria6"
+  },
+  {
+    "id": 7,
+    "status": true,
+    "thumbnail": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\Logo.png",
+    "title": "\"producto 7\"",
+    "description": "\"Descripcion Producto 7\"",
+    "code": "\"P0007\"",
+    "price": "100",
+    "stock": "10",
+    "category": "\"Categoria7\""
+  },
+  {
+    "id": 8,
+    "status": true,
+    "thumbnail": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\cedula verde dorso.jpg",
+    "title": "\"producto 8\"",
+    "description": "\"Descripcion Producto 8\"",
+    "code": "\"P0008\"",
+    "price": "100",
+    "stock": "10",
+    "category": "\"Categoria7\""
+  },
+  {
+    "id": 9,
+    "status": true,
+    "thumbnail": [],
+    "title": "\"producto 8\"",
+    "description": "\"Descripcion Producto 8\"",
+    "code": "\"P0009\"",
+    "price": "100",
+    "stock": "10",
+    "category": "\"Categoria7\""
+  },
+  {
+    "id": 10,
+    "status": true,
+    "thumbnail": [],
+    "title": "\"producto 9\"",
+    "description": "\"Descripcion Producto 8\"",
+    "code": "\"P0010\"",
+    "price": "100",
+    "stock": "10",
+    "category": "\"Categoria7\""
+  },
+  {
+    "id": 11,
+    "status": true,
+    "thumbnail": [],
+    "title": "\"producto 9\"",
+    "description": "\"Descripcion Producto 8\"",
+    "code": "\"P0011",
+    "price": "100",
+    "stock": "10",
+    "category": "\"Categoria7\""
+  },
+  {
+    "id": 12,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0011",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 13,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0012",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 14,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0013",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 15,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0014",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 16,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0015",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 17,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0016",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 18,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0017",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 19,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0018",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 20,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0019",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 21,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0020",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 22,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0021",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 23,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0022",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 24,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0023",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 25,
+    "status": true,
+    "thumbnail": [],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0024",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 26,
+    "status": true,
+    "thumbnail": [
+      {
+        "fieldname": "Thumbnail",
+        "originalname": "cedula verde dorso.jpg",
+        "encoding": "7bit",
+        "mimetype": "image/jpeg",
+        "destination": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img",
+        "filename": "cedula verde dorso.jpg",
+        "path": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\cedula verde dorso.jpg",
+        "size": 271228
+      },
+      {
+        "fieldname": "Thumbnail",
+        "originalname": "cedula verde frente.jpg",
+        "encoding": "7bit",
+        "mimetype": "image/jpeg",
+        "destination": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img",
+        "filename": "cedula verde frente.jpg",
+        "path": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\cedula verde frente.jpg",
+        "size": 296970
+      },
+      {
+        "fieldname": "Thumbnail",
+        "originalname": "Logo.png",
+        "encoding": "7bit",
+        "mimetype": "image/png",
+        "destination": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img",
+        "filename": "Logo.png",
+        "path": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\Logo.png",
+        "size": 6738
+      }
+    ],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0027",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 27,
+    "status": true,
+    "thumbnail": [
+      {
+        "fieldname": "Thumbnail",
+        "originalname": "cedula verde dorso.jpg",
+        "encoding": "7bit",
+        "mimetype": "image/jpeg",
+        "destination": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img",
+        "filename": "cedula verde dorso.jpg",
+        "path": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\cedula verde dorso.jpg",
+        "size": 271228
+      },
+      {
+        "fieldname": "Thumbnail",
+        "originalname": "cedula verde frente.jpg",
+        "encoding": "7bit",
+        "mimetype": "image/jpeg",
+        "destination": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img",
+        "filename": "cedula verde frente.jpg",
+        "path": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\cedula verde frente.jpg",
+        "size": 296970
+      },
+      {
+        "fieldname": "Thumbnail",
+        "originalname": "Logo.png",
+        "encoding": "7bit",
+        "mimetype": "image/png",
+        "destination": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img",
+        "filename": "Logo.png",
+        "path": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\Logo.png",
+        "size": 6738
+      }
+    ],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0028",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 28,
+    "status": true,
+    "thumbnail": [
+      {
+        "fieldname": "Thumbnail",
+        "originalname": "cedula verde dorso.jpg",
+        "encoding": "7bit",
+        "mimetype": "image/jpeg",
+        "destination": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img",
+        "filename": "cedula verde dorso.jpg",
+        "path": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\cedula verde dorso.jpg",
+        "size": 271228
+      },
+      {
+        "fieldname": "Thumbnail",
+        "originalname": "cedula verde frente.jpg",
+        "encoding": "7bit",
+        "mimetype": "image/jpeg",
+        "destination": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img",
+        "filename": "cedula verde frente.jpg",
+        "path": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\cedula verde frente.jpg",
+        "size": 296970
+      },
+      {
+        "fieldname": "Thumbnail",
+        "originalname": "Logo.png",
+        "encoding": "7bit",
+        "mimetype": "image/png",
+        "destination": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img",
+        "filename": "Logo.png",
+        "path": "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\Logo.png",
+        "size": 6738
+      }
+    ],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0029",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 29,
+    "status": true,
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0030",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 30,
+    "status": true,
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0031",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 31,
+    "status": true,
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0032",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  },
+  {
+    "id": 32,
+    "status": true,
+    "thumbnail": [
+      "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\cedula verde dorso.jpg",
+      "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\cedula verde frente.jpg",
+      "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\Logo.png"
+    ],
+    "title": "producto 9",
+    "description": "Descripcion Producto 8",
+    "code": "P0033",
+    "price": "100",
+    "stock": "10",
+    "category": "Categoria7"
+  }
+]

@@ -8,12 +8,14 @@ class ProductManager {
   }
 
   async loadFileProducts() {
-    const dataProducts = await fs.readFile(this.path, "utf-8");
     try {
+      const dataProducts = await fs.readFile(this.path, "utf-8");
       this.products = JSON.parse(dataProducts);
       this.productIdCounter = this.products.length + 1;
     } catch (error) {
-      return error.message;
+      this.products = [];
+      this.productsIdCounter = 1;
+      const dataProducts = await fs.writeFile(this.path, "utf-8");
     }
   }
 
@@ -21,40 +23,36 @@ class ProductManager {
     await fs.writeFile(this.path, JSON.stringify(this.products), "utf-8");
   }
 
-  async addProduct(product) {
+  async addProduct(product, pathFile) {
+    await this.loadFileProducts();
     try {
-      await this.loadFileProducts();
-      try {
-        if (
-          !product.title ||
-          !product.description ||
-          !product.code ||
-          !product.price ||
-          !product.stock ||
-          !product.category
-        ) {
-          throw new Error("Faltan campos son obligatorios.");
-        }
-
-        const existingProduct = this.products.find(
-          (p) => p.code === product.code
-        );
-        if (existingProduct) {
-          throw new Error("Ya existe el producto.");
-        }
-
-        const newProduct = {
-          id: this.productIdCounter,
-          status: true,
-          ...product,
-        };
-        this.products.push(newProduct);
-        this.productIdCounter++;
-        await this.saveFileProducts();
-        return newProduct;
-      } catch (error) {
-        throw error;
+      if (
+        !product.title ||
+        !product.description ||
+        !product.code ||
+        !product.price ||
+        !product.stock ||
+        !product.category
+      ) {
+        throw new Error("Faltan campos son obligatorios.");
       }
+
+      const existingProduct = this.products.find(
+        (p) => p.code === product.code
+      );
+      if (existingProduct) {
+        throw new Error("Ya existe el producto.");
+      }
+      const newProduct = {
+        id: this.productIdCounter,
+        status: true,
+        thumbnail: pathFile,
+        ...product,
+      };
+      this.products.push(newProduct);
+      this.productIdCounter++;
+      await this.saveFileProducts();
+      return newProduct;
     } catch (error) {
       return error.message;
     }
@@ -82,7 +80,7 @@ class ProductManager {
     }
   }
 
-  async updateProduct(id, dataUpdate) {
+  async updateProduct(id, dataUpdate, pathFile) {
     try {
       await this.loadFileProducts();
       try {
@@ -94,6 +92,7 @@ class ProductManager {
             ...this.products[productIndex],
             ...dataUpdate,
             id: id,
+            thumbnail: [...this.products[productIndex].thumbnail, ...pathFile],
           };
           await this.saveFileProducts();
           try {

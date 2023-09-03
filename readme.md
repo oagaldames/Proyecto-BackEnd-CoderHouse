@@ -1,23 +1,23 @@
-# Desafio entregable Servidor con Express
+# PreEntrega1 - Proyecto Final
 
 ## Alumno: Omar A. Galdames
 
-### El archivo products.json con 10 productos se encuentra en src/data
+### El archivo products.json se guarda src/data (archivo de productos)
+
+### El archivo carts.json se guarda src/data (Archivo para carrito de compras)
 
 ### La clase ProductManager se encuentra en src/models
 
-### Las rutas estan definidas en el src/app.js y los metodos de la clase ProductManager se llaman desde aqui
+### La clase CartManager se encuentra en src/models
 
-### Para correrlo, ejecutar nodemon app.js para que levante el servidor local en el puerto 8080
+### Las rutas estan definidas en el src/routes
 
-## Test
+### Las rutas de productos en src/routes/products.js
 
-### Se corroborará que el servidor esté corriendo en el puerto 8080.
+### Las rutas de carrito en src/routes/cart.js
 
-### Se mandará a llamar desde el navegador a la url http://localhost:8080/products sin query, eso debe devolver todos los 10 productos.
+### los archivos se almacenana en public/img
 
-### Se mandará a llamar desde el navegador a la url http://localhost:8080/products?limit=5 , eso debe devolver sólo los primeros 5 de los 10 productos o los que se indiquen en el query param.
+### Desde src/app.js se ejecuta el servidor
 
-### Se mandará a llamar desde el navegador a la url http://localhost:8080/products/2, eso debe devolver sólo el producto con id=2. o el que se indique en el req.params
-
-### Se mandará a llamar desde el navegador a la url http://localhost:8080/products/34123123, al no existir el id del producto, debe devolver un objeto con un error indicando que el producto no existe.
+### Para correrlo, ejecutar nodemon src/app.js para que levante el servidor local en el puerto 8080

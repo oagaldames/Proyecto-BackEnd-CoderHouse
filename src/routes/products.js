@@ -1,6 +1,10 @@
 import express from "express";
 const router = express.Router();
 import ProductManager from "../models/ProductManager.js";
+import { uploader } from "../utils.js";
+
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
 
 // Instancia de Clase ProductManager con archivo JSON /data/products.json
 const productManager = new ProductManager("./data/products.json");
@@ -41,10 +45,21 @@ router.get("/:pid", async (req, res) => {
 });
 
 // Ruta para agregar un nuevo producto
-router.post("/", async (req, res) => {
+router.post("/", uploader.array("Thumbnail"), async (req, res) => {
+  let pathThumbnail = [];
   try {
+    if (req.files) {
+      const arrayFiles = req.files;
+      console.log(arrayFiles);
+      pathThumbnail = arrayFiles.map((item) => item.path);
+    } else {
+      pathThumbnail = [];
+    }
     const productData = req.body;
-    const newProduct = await productManager.addProduct(productData);
+    const newProduct = await productManager.addProduct(
+      productData,
+      pathThumbnail
+    );
 
     if (typeof newProduct === "string") {
       res.status(409).send({ message: newProduct });
@@ -55,20 +70,30 @@ router.post("/", async (req, res) => {
       });
     }
   } catch (error) {
-    res
-      .status(500)
-      .send({ message: "Error interno del servidor", error: error.message });
+    res.status(500).send({
+      message: "Error interno del servidor",
+      error: error.message,
+    });
   }
 });
 
 // Ruta para actualizar un producto por ID
-router.put("/:pid", async (req, res) => {
+router.put("/:pid", uploader.array("Thumbnail"), async (req, res) => {
+  let pathThumbnail = [];
   try {
+    if (req.files) {
+      const arrayFiles = req.files;
+      console.log(arrayFiles);
+      pathThumbnail = arrayFiles.map((item) => item.path);
+    } else {
+      pathThumbnail = [];
+    }
     const idProduct = parseInt(req.params.pid);
     const productData = req.body;
     const updatedProduct = await productManager.updateProduct(
       idProduct,
-      productData
+      productData,
+      pathThumbnail
     );
     if (updatedProduct === true) {
       res.status(200).send({
