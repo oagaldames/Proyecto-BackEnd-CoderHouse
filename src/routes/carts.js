@@ -4,35 +4,16 @@ import CartManager from "../models/CartManager.js";
 
 // Crear una instancia de CartManager con tu archivo JSON
 const cartManager = new CartManager("./data/carts.json");
-// Ruta para agregar un nuevo cart
+
+// Ruta para agregar un nuevo carrrito
 router.post("/", async (req, res) => {
   try {
     const newCart = await cartManager.addCart();
 
-    if (newCart === true) {
-      res.status(201).send({
-        message: "Producto creado correctamente",
-        cart: newCart,
-      });
+    if (newCart.success) {
+      res.status(201).send({ Result: newCart });
     } else {
       res.status(400).send({ message: newCart });
-    }
-  } catch (error) {
-    res
-      .status(500)
-      .send({ message: "Error interno del servidor", error: error.message });
-  }
-});
-
-router.get("/", async (req, res) => {
-  try {
-    const limit = parseInt(req.query.limit);
-    const carts = await cartManager.getCarts();
-    if (limit) {
-      const limitedcarts = carts.slice(0, limit);
-      res.status(200).send({ status: "success", limitedcarts });
-    } else {
-      res.status(200).send({ status: "success", carts });
     }
   } catch (error) {
     res
@@ -46,10 +27,31 @@ router.get("/:cid", async (req, res) => {
   try {
     const idcart = parseInt(req.params.cid);
     const cartById = await cartManager.getCartById(idcart);
-    if (cartById) {
-      res.status(200).send({ status: "success", cartById });
+    if (cartById.success) {
+      res.status(200).send({ Result: cartById });
     } else {
-      res.status(404).send({ error: "carrito no encontrado" });
+      res.status(404).send({ message: cartById });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error interno del servidor", error: error.message });
+  }
+});
+
+// Ruta para agregar un nuevo producto al carrito seleccionado si no existe
+//si el producto existe suma 1 a la cantidad existente
+router.post("/:cid/product/:pid", async (req, res) => {
+  try {
+    const cid = parseInt(req.params.cid);
+    const pid = parseInt(req.params.pid);
+    const quantity = 1;
+    const cart = await cartManager.addProductsToCart(cid, pid, quantity);
+
+    if (cart.success) {
+      res.status(200).send({ Result: cart });
+    } else {
+      res.status(400).send({ message: cart });
     }
   } catch (error) {
     res

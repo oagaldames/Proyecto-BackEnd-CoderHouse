@@ -1,4 +1,7 @@
 import fs from "fs/promises";
+import ProductManager from "./ProductManager.js";
+
+const productManager = new ProductManager("./data/products.json");
 
 class CartManager {
   constructor(filePath) {
@@ -25,16 +28,13 @@ class CartManager {
   }
 
   async addCart() {
-    //try {
     await this.loadFileCarts();
     try {
-      console.log("loadFileCarts");
       const newCart = {
         id: this.cartIdCounter,
         products: [],
       };
       this.carts.push(newCart);
-      console.log(newCart);
       this.cartIdCounter++;
       await this.saveCart();
       return {
@@ -45,31 +45,74 @@ class CartManager {
     } catch (error) {
       return { success: false, message: error.message };
     }
-    //} catch (error) {
-    //  throw error;
-    //}
-  }
-
-  async getCarts() {
-    await this.loadFileCarts();
-    try {
-      return this.carts;
-    } catch (error) {
-      return error.message;
-    }
   }
 
   async getCartById(id) {
     await this.loadFileCarts();
     try {
       const cart = this.carts.find((c) => c.id === id);
-      if (!cart) {
-        return null;
+      if (cart) {
+        return {
+          success: true,
+          cart: cart,
+        };
+      } else {
+        return {
+          success: false,
+          mensaje: `No se encontro un Carrito con el Id ${id}`,
+        };
       }
-      return cart;
     } catch (error) {
-      return null;
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
+  }
+
+  async addProductsToCart(cartId, productId, quantity) {
+    const cart = await this.getCartById(cartId);
+    try {
+      if (cart.success) {
+        const product = await productManager.getProductById(productId);
+
+        if (product !== null) {
+          const indexProduct = cart.cart.products.findIndex(
+            (item) => item.product === productId
+          );
+
+          if (indexProduct !== -1) {
+            cart.cart.products[indexProduct].quantity++;
+          } else {
+            cart.cart.products.push({
+              product: productId,
+              quantity: quantity || 1,
+            });
+          }
+
+          await this.saveCart();
+          try {
+            return {
+              success: true,
+              message: "Carrito actualizado correctamente",
+              cart: cart.cart,
+            };
+          } catch (error) {
+            throw new Error("Producto no se pudo agregar");
+          }
+        } else {
+          throw new Error("Producto que se quiere agregar no existe");
+        }
+      } else {
+        return {
+          success: false,
+          message: `No se encontro un Carrito con el Id ${cartId}`,
+        };
+      }
+    } catch (error) {
+      return error.message;
     }
   }
 }
+
 export default CartManager;
