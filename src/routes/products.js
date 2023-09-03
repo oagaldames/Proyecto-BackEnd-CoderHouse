@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 import ProductManager from "../models/ProductManager.js";
 
-// Crear una instancia de ProductManager con tu archivo JSON
+// Instancia de Clase ProductManager con archivo JSON /data/products.json
 const productManager = new ProductManager("./data/products.json");
 
 // Ruta para obtener todos los productos con límite opcional
@@ -90,7 +90,6 @@ router.delete("/:pid", async (req, res) => {
   const deletedProduct = await productManager.deleteProduct(idProduct);
   try {
     if (deletedProduct === true) {
-      console.log(deletedProduct);
       res.status(200).send({
         message: `El producto con Id= ${idProduct}  se ha Eliminado correctamente.`,
       });

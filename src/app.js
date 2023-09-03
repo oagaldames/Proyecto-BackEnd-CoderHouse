@@ -14,6 +14,6 @@ app.listen(PORT, () => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+/** Rutas */
 app.use("/api/products", productRouter);
-app.use("/api/products/:pid", productRouter);
 app.use("/api/carts", cartsRouter);

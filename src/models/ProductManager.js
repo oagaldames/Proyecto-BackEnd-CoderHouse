@@ -33,7 +33,7 @@ class ProductManager {
           !product.stock ||
           !product.category
         ) {
-          throw new Error("Todos los campos son obligatorios.");
+          throw new Error("Faltan campos son obligatorios.");
         }
 
         const existingProduct = this.products.find(
@@ -56,7 +56,6 @@ class ProductManager {
         throw error;
       }
     } catch (error) {
-      console.log(error.message);
       return error.message;
     }
   }
@@ -129,7 +128,6 @@ class ProductManager {
             return error.message;
           }
         } else {
-          console.log(`No se encontro un Producto con el ID ${id}`);
           throw new Error(`No se encontro un Producto con el ID ${id}`);
         }
       } catch (error) {

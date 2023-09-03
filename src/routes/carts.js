@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 import CartManager from "../models/CartManager.js";
 
-// Crear una instancia de CartManager con tu archivo JSON
+// Instancia de Clase CartManager con archivo JSON /data/carts.json
 const cartManager = new CartManager("./data/carts.json");
 
 // Ruta para agregar un nuevo carrrito
