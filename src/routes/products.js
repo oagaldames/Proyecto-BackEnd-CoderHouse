@@ -50,7 +50,6 @@ router.post("/", uploader.array("Thumbnail"), async (req, res) => {
   try {
     if (req.files) {
       const arrayFiles = req.files;
-      console.log(arrayFiles);
       pathThumbnail = arrayFiles.map((item) => item.path);
     } else {
       pathThumbnail = [];
@@ -83,7 +82,6 @@ router.put("/:pid", uploader.array("Thumbnail"), async (req, res) => {
   try {
     if (req.files) {
       const arrayFiles = req.files;
-      console.log(arrayFiles);
       pathThumbnail = arrayFiles.map((item) => item.path);
     } else {
       pathThumbnail = [];

@@ -28,8 +28,8 @@ class CartManager {
   }
 
   async addCart() {
-    await this.loadFileCarts();
     try {
+      await this.loadFileCarts();
       const newCart = {
         id: this.cartIdCounter,
         products: [],
@@ -48,8 +48,8 @@ class CartManager {
   }
 
   async getCartById(id) {
-    await this.loadFileCarts();
     try {
+      await this.loadFileCarts();
       const cart = this.carts.find((c) => c.id === id);
       if (cart) {
         return {
@@ -71,8 +71,9 @@ class CartManager {
   }
 
   async addProductsToCart(cartId, productId, quantity) {
-    const cart = await this.getCartById(cartId);
     try {
+      const cart = await this.getCartById(cartId);
+
       if (cart.success) {
         const product = await productManager.getProductById(productId);
 

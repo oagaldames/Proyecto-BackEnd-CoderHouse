@@ -24,8 +24,9 @@ class ProductManager {
   }
 
   async addProduct(product, pathFile) {
-    await this.loadFileProducts();
     try {
+      await this.loadFileProducts();
+
       if (
         !product.title ||
         !product.description ||
@@ -44,10 +45,10 @@ class ProductManager {
         throw new Error("Ya existe el producto.");
       }
       const newProduct = {
-        id: this.productIdCounter,
-        status: true,
         thumbnail: pathFile,
         ...product,
+        id: this.productIdCounter,
+        status: true,
       };
       this.products.push(newProduct);
       this.productIdCounter++;
@@ -59,8 +60,9 @@ class ProductManager {
   }
 
   async getProducts() {
-    await this.loadFileProducts();
     try {
+      await this.loadFileProducts();
+
       return this.products;
     } catch (error) {
       return error.message;
@@ -68,8 +70,9 @@ class ProductManager {
   }
 
   async getProductById(id) {
-    await this.loadFileProducts();
     try {
+      await this.loadFileProducts();
+
       const product = this.products.find((p) => p.id === id);
       if (!product) {
         return null;
@@ -88,6 +91,13 @@ class ProductManager {
           (product) => product.id === id
         );
         if (productIndex !== -1) {
+          const existingProduct = this.products.find(
+            (p) => p.code === dataUpdate.code
+          );
+          if (existingProduct && existingProduct.id !== id) {
+            throw new Error("Ya existe el codigo de producto en otro producto");
+          } else {
+          }
           this.products[productIndex] = {
             ...this.products[productIndex],
             ...dataUpdate,
