@@ -8,7 +8,6 @@ router.use(express.urlencoded({ extended: true }));
 
 // Instancia de Clase ProductManager con archivo JSON /data/products.json
 const productManager = new ProductManager("./data/products.json");
-
 // Ruta para obtener todos los productos con límite opcional
 router.get("/", async (req, res) => {
   try {

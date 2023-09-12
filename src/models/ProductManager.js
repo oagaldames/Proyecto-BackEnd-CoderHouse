@@ -62,7 +62,6 @@ class ProductManager {
   async getProducts() {
     try {
       await this.loadFileProducts();
-
       return this.products;
     } catch (error) {
       return error.message;
