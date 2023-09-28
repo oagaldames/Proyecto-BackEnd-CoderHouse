@@ -8,7 +8,7 @@ const currentDirPath = dirname(currentFilePath);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const imgFolderPath = join(currentDirPath, "..", "public", "img");
+    const imgFolderPath = join(currentDirPath, "..", "src/public", "img");
     cb(null, imgFolderPath);
   },
   filename: function (req, file, cb) {

@@ -1,1 +1,79 @@
-[{"id":1,"status":"true","thumbnail":["D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\integracionde sistemas.JPG"],"title":"producto 1","description":"Descripcion Producto 1","code":"P0001","price":"400","stock":"500","category":"Categoria1"},{"id":2,"status":true,"thumbnail":["D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\perisfericos.JPG","D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\photo-1544724569-5f546fd6f2b5.jpg"],"title":"producto 2","description":"Descripcion Producto 2","code":"P0002","price":"200","stock":"20","category":"Categoria2"},{"id":3,"status":true,"thumbnail":["D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\trasmisores.JPG","D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\plcs.JPG"],"title":"producto 4","description":"Descripcion Producto 4","code":"P0003","price":"400","stock":"500","category":"Categoria3"},{"thumbnail":[],"title":"fdg","description":"dfg","code":"fdg","price":10,"stock":10,"category":"10","thumbnails":[""],"id":4,"status":true},{"thumbnail":[],"title":"try","description":"tyr","code":"rty","price":10,"stock":10,"category":"ytr","thumbnails":[""],"id":5,"status":true},{"thumbnail":[],"title":"dsa","description":"ads","code":"ads","price":41,"stock":41,"category":"ads","thumbnails":["dsa"],"id":6,"status":true}]
+[
+  {
+    "id": 1,
+    "status": "true",
+    "thumbnail": [
+      "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\integracionde sistemas.JPG"
+    ],
+    "title": "producto 1",
+    "description": "Descripcion Producto 1",
+    "code": "P0001",
+    "price": "400",
+    "stock": "500",
+    "category": "Categoria1"
+  },
+  {
+    "id": 2,
+    "status": true,
+    "thumbnail": [
+      "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\perisfericos.JPG",
+      "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\photo-1544724569-5f546fd6f2b5.jpg"
+    ],
+    "title": "producto 2",
+    "description": "Descripcion Producto 2",
+    "code": "P0002",
+    "price": "200",
+    "stock": "20",
+    "category": "Categoria2"
+  },
+  {
+    "id": 3,
+    "status": true,
+    "thumbnail": [
+      "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\trasmisores.JPG",
+      "D:\\CURSOS\\FULL STACK\\BACKEND\\Proyecto-BackEnd-CoderHouse\\public\\img\\plcs.JPG"
+    ],
+    "title": "producto 4",
+    "description": "Descripcion Producto 4",
+    "code": "P0003",
+    "price": "400",
+    "stock": "500",
+    "category": "Categoria3"
+  },
+  {
+    "thumbnail": [],
+    "title": "fdg",
+    "description": "dfg",
+    "code": "fdg",
+    "price": 10,
+    "stock": 10,
+    "category": "10",
+    "thumbnails": [""],
+    "id": 4,
+    "status": true
+  },
+  {
+    "thumbnail": [],
+    "title": "try",
+    "description": "tyr",
+    "code": "rty",
+    "price": 10,
+    "stock": 10,
+    "category": "ytr",
+    "thumbnails": [""],
+    "id": 5,
+    "status": true
+  },
+  {
+    "thumbnail": [],
+    "title": "dsa",
+    "description": "ads",
+    "code": "ads",
+    "price": 41,
+    "stock": 41,
+    "category": "ads",
+    "thumbnails": ["dsa"],
+    "id": 6,
+    "status": true
+  }
+]

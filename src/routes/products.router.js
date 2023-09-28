@@ -1,35 +1,24 @@
-import express from "express";
-const router = express.Router();
-import ProductManager from "../dao/fileManagers/ProductManager.js";
+import { Router } from "express";
+import ProductManager from "../dao/dbManagers/products.manager.js";
 import { uploader } from "../utils.js";
 
-router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
+const router = Router();
+const productManager = new ProductManager();
 
-// Instancia de Clase ProductManager con archivo JSON /data/products.json
-const productManager = new ProductManager("./data/products.json");
 // Ruta para obtener todos los productos con límite opcional
 router.get("/", async (req, res) => {
   try {
     const limit = parseInt(req.query.limit);
-    const products = await productManager.getProducts();
-    if (limit) {
-      const limitedProducts = products.slice(0, limit);
-      res.status(200).send({ status: "success", limitedProducts });
-    } else {
-      res.status(200).send({ status: "success", products });
-    }
+    const products = await productManager.getAllProducts(limit);
+    res.send({ status: "success", payload: products });
   } catch (error) {
-    res
-      .status(500)
-      .send({ message: "Error interno del servidor", error: error.message });
+    res.status(500).send({ status: "error", error: error.message });
   }
 });
-
 // Ruta para obtener un producto por ID
 router.get("/:pid", async (req, res) => {
   try {
-    const idProduct = parseInt(req.params.pid);
+    const idProduct = req.params.pid;
     const productById = await productManager.getProductById(idProduct);
     if (productById) {
       res.status(200).send({ status: "success", productById });
@@ -45,8 +34,8 @@ router.get("/:pid", async (req, res) => {
 
 // Ruta para agregar un nuevo producto
 router.post("/", uploader.array("Thumbnail"), async (req, res) => {
-  let pathThumbnail = [];
   try {
+    let pathThumbnail = [];
     if (req.files) {
       const arrayFiles = req.files;
       pathThumbnail = arrayFiles.map((item) => item.path);
@@ -54,19 +43,17 @@ router.post("/", uploader.array("Thumbnail"), async (req, res) => {
       pathThumbnail = [];
     }
     const productData = req.body;
-    const newProduct = await productManager.addProduct(
-      productData,
-      pathThumbnail
-    );
 
-    if (typeof newProduct === "string") {
-      res.status(409).send({ message: newProduct });
-    } else {
-      res.status(201).send({
-        message: "Producto creado correctamente",
-        product: newProduct,
-      });
-    }
+    // Crea un nuevo producto utilizando el modelo de Mongoose
+    const result = await productManager.addProduct({
+      ...productData,
+      thumbnail: pathThumbnail,
+    });
+
+    res.status(201).send({
+      message: "Producto creado correctamente",
+      cart: result,
+    });
   } catch (error) {
     res.status(500).send({
       message: "Error interno del servidor",
@@ -85,16 +72,18 @@ router.put("/:pid", uploader.array("Thumbnail"), async (req, res) => {
     } else {
       pathThumbnail = [];
     }
-    const idProduct = parseInt(req.params.pid);
+    const idProduct = req.params.pid;
     const productData = req.body;
     const updatedProduct = await productManager.updateProduct(
       idProduct,
       productData,
       pathThumbnail
     );
-    if (updatedProduct === true) {
+    if (updatedProduct) {
       res.status(200).send({
+        status: "success",
         message: `El producto con Id= ${idProduct}  se ha Modificado correctamente.`,
+        updatedProduct,
       });
     } else {
       res.status(400).json({ error: updatedProduct });
@@ -108,11 +97,12 @@ router.put("/:pid", uploader.array("Thumbnail"), async (req, res) => {
 
 // Ruta para eliminar un producto por ID
 router.delete("/:pid", async (req, res) => {
-  const idProduct = parseInt(req.params.pid);
+  const idProduct = req.params.pid;
   const deletedProduct = await productManager.deleteProduct(idProduct);
   try {
     if (deletedProduct === true) {
       res.status(200).send({
+        status: "success",
         message: `El producto con Id= ${idProduct}  se ha Eliminado correctamente.`,
       });
     } else {

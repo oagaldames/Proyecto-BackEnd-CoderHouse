@@ -1,6 +1,6 @@
 import express from "express";
 import { Router } from "express";
-import ProductManager from "../models/ProductManager.js";
+import ProductManager from "../dao/fileManagers/ProductManager.js";
 
 const productManager = new ProductManager("./data/products.json");
 const socketViewsRouter = Router();

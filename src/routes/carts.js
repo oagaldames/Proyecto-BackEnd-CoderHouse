@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import CartManager from "../models/CartManager.js";
+import CartManager from "../dao/fileManagers/CartManager.js";
 
 // Instancia de Clase CartManager con archivo JSON /data/carts.json
 const cartManager = new CartManager("./data/carts.json");
