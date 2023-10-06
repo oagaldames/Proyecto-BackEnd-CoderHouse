@@ -8,7 +8,6 @@ import { productRouter } from "./routes/products.router.js";
 import { cartsRouter } from "./routes/carts.router.js";
 import viewsRouter from "./routes/view.router.js";
 import mongoose from "mongoose";
-import { chatRouter } from "./routes/chats.router.js";
 import MessageManager from "./dao/dbManagers/messages.manager.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -44,9 +43,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartsRouter);
 //app.use("/products", viewsRouter(socketServer));
-app.use("/products", viewsRouter);
-app.use("/carts", viewsRouter);
-app.use("/", chatRouter);
+app.use("/", viewsRouter);
 
 let messages = [];
 socketServer.on("connection", (socket) => {

@@ -5,6 +5,15 @@ class ProductManager {
     this.products = [];
   }
 
+  async getProducts() {
+    try {
+      const products = await productsModel.find().lean();
+      return products;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
   async getAllProducts({ limit = 10, page = 1, sort = null, query = {} }) {
     const options = {
       page: page,
