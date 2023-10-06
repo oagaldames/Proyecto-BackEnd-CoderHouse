@@ -43,7 +43,9 @@ app.use(express.urlencoded({ extended: true }));
 /** Rutas */
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartsRouter);
-app.use("/products", viewsRouter(socketServer));
+//app.use("/products", viewsRouter(socketServer));
+app.use("/products", viewsRouter);
+app.use("/carts", viewsRouter);
 app.use("/", chatRouter);
 
 let messages = [];

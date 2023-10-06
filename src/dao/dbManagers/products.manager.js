@@ -5,13 +5,43 @@ class ProductManager {
     this.products = [];
   }
 
-  async getAllProducts(limit) {
-    let query = productsModel.find().lean();
-    if (limit) {
-      query = query.limit(limit);
+  async getAllProducts({ limit = 10, page = 1, sort = null, query = {} }) {
+    const options = {
+      page: page,
+      limit: limit,
+      sort: {},
+      customLabels: {
+        docs: "payload",
+        totalDocs: "totalProducts",
+        page: "currentPage",
+      },
+    };
+    try {
+      if (sort === "asc" || sort === "desc") {
+        options.sort = { price: sort === "asc" ? 1 : -1 };
+      }
+
+      const products = await productsModel.paginate(query, options);
+      return {
+        status: "success",
+        payload: products.payload,
+        totalProducts: products.totalProducts,
+        totalPages: products.totalPages,
+        currentPage: products.currentPage,
+        hasNextPage: products.hasNextPage,
+        hasPrevPage: products.hasPrevPage,
+      };
+    } catch (error) {
+      return {
+        status: "error",
+        payload: products.payload, // Los documentos paginados
+        totalProducts: products.totalProducts, // Total de productos
+        totalPages: products.totalPages, // Total de páginas
+        currentPage: products.currentPage, // Página actual
+        hasNextPage: products.hasNextPage, // Si hay una página siguiente
+        hasPrevPage: products.hasPrevPage, // Si hay una página previa
+      };
     }
-    const products = await query.exec();
-    return products;
   }
 
   async getProductById(id) {

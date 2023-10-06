@@ -1,7 +1,6 @@
 const socket = io();
 
 socket.on("dataUpdated", (products) => {
-  console.log("entro en dataUpdated", products);
   const table = document.getElementById("productTable");
   const tbody = table.querySelector("tbody");
   tbody.innerHTML = "";

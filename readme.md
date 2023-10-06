@@ -1,3 +1,3 @@
-# DESAFÍO COMPLEMENTARIO - Práctica de integración
+# Segunda pre-entrega Proyecto final
 
 ## Alumno: Omar A. Galdames

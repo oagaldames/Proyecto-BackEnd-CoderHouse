@@ -1,0 +1,30 @@
+console.log("enJS", products);
+const table = document.getElementById("productTable");
+const tbody = table.querySelector("tbody");
+tbody.innerHTML = "";
+
+products.forEach((products) => {
+  const row = document.createElement("tr");
+  const idCell = document.createElement("td");
+  idCell.textContent = products.id;
+  row.appendChild(idCell);
+  const titleCell = document.createElement("td");
+  titleCell.textContent = products.title;
+  row.appendChild(titleCell);
+  const descriptionCell = document.createElement("td");
+  descriptionCell.textContent = products.description;
+  row.appendChild(descriptionCell);
+  const codeCell = document.createElement("td");
+  codeCell.textContent = products.code;
+  row.appendChild(codeCell);
+  const priceCell = document.createElement("td");
+  priceCell.textContent = products.price;
+  row.appendChild(priceCell);
+  const stockCell = document.createElement("td");
+  stockCell.textContent = products.stock;
+  row.appendChild(stockCell);
+  const categoryCell = document.createElement("td");
+  categoryCell.textContent = products.category;
+  row.appendChild(categoryCell);
+  tbody.appendChild(row);
+});

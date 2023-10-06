@@ -1,0 +1,31 @@
+<h1>LISTA DE PRODUCTOS</h1>
+
+<h1>Listado de Productos</h1>
+<ul>
+  {{#each products.payload}}
+    <li>{{payload.title}}
+      -
+      {{payload.description}}
+      -
+      {{payload.code}}
+      -
+      {{payload.price}}
+      -{{payload.price}}
+      -
+      {{payload.stock}}
+      -
+      {{payload.category}}
+    </li>
+  {{/each}}
+</ul>
+<div>
+  {{#if hasPrevPage}}
+    <h1>prev</h1>
+    <a href="/products?page={{prevPage}}"><button>Anterior</button></a>
+  {{/if}}
+
+  {{#if hasNextPage}}
+    <h1>next</h1>
+    <a href="/products?page={{nextPage}}"><button>Siguiente</button></a>
+  {{/if}}
+</div>
