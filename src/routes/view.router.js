@@ -38,10 +38,7 @@ viewsRouter.get("/products", async (req, res) => {
 
     const listaproductos = await productsModel.paginate({}, options);
 
-    res.render("products", {
-      js: "products.js",
-      listaproductos,
-    });
+    res.render("products", { listaproductos });
   } catch (error) {
     res
       .status(400)

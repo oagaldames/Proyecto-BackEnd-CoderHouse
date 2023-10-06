@@ -14,7 +14,8 @@ class ProductManager {
     }
   }
 
-  async getAllProducts({ limit = 10, page = 1, sort = null, query = {} }) {
+  async getAllProducts(limit, page, sort, category) {
+    console.log(limit, page, sort, page, category);
     const options = {
       page: page,
       limit: limit,
@@ -30,7 +31,13 @@ class ProductManager {
         options.sort = { price: sort === "asc" ? 1 : -1 };
       }
 
-      const products = await productsModel.paginate(query, options);
+      let products = {};
+
+      if (Object.keys(category).length === 0) {
+        products = await productsModel.paginate({}, options);
+      } else {
+        products = await productsModel.paginate({ category }, options);
+      }
       return {
         status: "success",
         payload: products.payload,
@@ -43,12 +50,12 @@ class ProductManager {
     } catch (error) {
       return {
         status: "error",
-        payload: products.payload, // Los documentos paginados
-        totalProducts: products.totalProducts, // Total de productos
-        totalPages: products.totalPages, // Total de páginas
-        currentPage: products.currentPage, // Página actual
-        hasNextPage: products.hasNextPage, // Si hay una página siguiente
-        hasPrevPage: products.hasPrevPage, // Si hay una página previa
+        payload: products.payload,
+        totalProducts: products.totalProducts,
+        totalPages: products.totalPages,
+        currentPage: products.currentPage,
+        hasNextPage: products.hasNextPage,
+        hasPrevPage: products.hasPrevPage,
       };
     }
   }

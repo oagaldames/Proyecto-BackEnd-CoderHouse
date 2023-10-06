@@ -5,11 +5,20 @@ import { uploader } from "../utils.js";
 const router = Router();
 const productManager = new ProductManager();
 
-// Ruta para obtener todos los productos con límite opcional
 router.get("/", async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit);
-    const products = await productManager.getAllProducts(limit);
+    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page) || 1;
+    const sort = req.query.sort || null;
+    const category = req.query.category || {};
+    console.log(limit, page, sort, page, category);
+
+    const products = await productManager.getAllProducts(
+      limit,
+      page,
+      sort,
+      category
+    );
     res.send({ status: "success", payload: products });
   } catch (error) {
     res.status(500).send({ status: "error", error: error.message });
