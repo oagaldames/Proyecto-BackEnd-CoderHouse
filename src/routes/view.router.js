@@ -2,6 +2,7 @@ import { Router } from "express";
 import ProductManager from "../dao/dbManagers/products.manager.js";
 import CartManager from "../dao/dbManagers/carts.manager.js";
 import { productsModel } from "../dao/models/product.model.js";
+import { cartsModel } from "../dao/models/cart.model.js";
 import { uploader } from "../utils.js";
 
 const viewsRouter = Router();
@@ -45,6 +46,27 @@ viewsRouter.get("/products", async (req, res) => {
     res
       .status(400)
       .send({ respuesta: "Error en consultar productos", mensaje: error });
+  }
+});
+
+viewsRouter.get("/carts/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const cart = await cartsModel
+      .findOne({ _id: id })
+      .populate("products.product")
+      .lean();
+    if (cart) res.render("cart", { cart });
+    else
+      res.status(404).send({
+        respuesta: "Error en consultar Carrito",
+        mensaje: "Not Found",
+      });
+  } catch (error) {
+    res
+      .status(400)
+      .send({ respuesta: "Error en consulta carrito", mensaje: error });
   }
 });
 

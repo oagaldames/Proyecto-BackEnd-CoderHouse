@@ -1,17 +1,24 @@
-<h1>Carrito</h1>
+<div class="d-flex justify-content-center"></div>
+<h1 class="text-center">EL carrito con _id:
+  {{cart._id}}
+  tiene los siguientes productos:</h1>
+<ul class="bg-primary" style="width: 24rem; margin: auto;">
 
-{{#if cart}}
-  <h2>ID del carrito: {{cart._id}}</h2>
-  <ul>
-    {{#each cart.products}}
-      <li>
-        <h3>Producto: {{this.product.title}}</h3>
-        <p>Descripción: {{this.product.description}}</p>
-        <p>Precio: {{this.product.price}}</p>
-        <!-- Agrega aquí cualquier otra información del producto que desees mostrar -->
-      </li>
-    {{/each}}
-  </ul>
-{{else}}
-  <p>No se encontró un carrito con el ID especificado.</p>
-{{/if}}
+  {{#each cart.products}}
+    <li class="card text-center mt-2 mb-2" style="width: 20rem">
+      <h3 class="card-title">Producto: {{this.product.title}}</h3>
+      <h5>Precio: ${{this.product.price}}</h5>
+      <h5>Categoría: {{this.product.category}}</h5>
+      <div class="border rounded-4">
+        <h5>Descripción:</h5>
+        <p class="card-text">{{this.product.description}}</p>
+      </div>
+      <h5 class="mt-2">Stock:
+        {{this.product.stock}}
+        || Código:{{this.product.code}}</h5>
+      <h3>Cantidad: {{this.quantity}}</h3>
+
+    </li>
+  {{/each}}
+
+</ul>
