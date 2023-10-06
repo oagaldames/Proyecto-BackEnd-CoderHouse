@@ -38,7 +38,10 @@ viewsRouter.get("/products", async (req, res) => {
 
     const listaproductos = await productsModel.paginate({}, options);
 
-    res.render("products", { listaproductos });
+    res.render("products", {
+      js: "products.js",
+      listaproductos,
+    });
   } catch (error) {
     res
       .status(400)
@@ -54,6 +57,7 @@ viewsRouter.get("/carts/:id", async (req, res) => {
       .findOne({ _id: id })
       .populate("products.product")
       .lean();
+
     if (cart) res.render("cart", { cart });
     else
       res.status(404).send({
