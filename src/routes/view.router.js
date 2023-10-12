@@ -10,10 +10,10 @@ const viewsRouter = Router();
 const productManager = new ProductManager();
 const cartManager = new CartManager();
 
-viewsRouter.get("/", async (req, res) => {
-  const products = await productManager.getProducts();
-  res.render("home", { products });
-});
+// viewsRouter.get("/", async (req, res) => {
+//   const products = await productManager.getProducts();
+//   res.render("home", { products });
+// });
 
 viewsRouter.get("/chat", (req, res) => {
   res.render("chat", {});
@@ -41,6 +41,7 @@ viewsRouter.get("/products", async (req, res) => {
     res.render("products", {
       js: "products.js",
       listaproductos,
+      user: req.session.user,
     });
   } catch (error) {
     res
@@ -69,6 +70,31 @@ viewsRouter.get("/carts/:id", async (req, res) => {
       .status(400)
       .send({ respuesta: "Error en consulta carrito", mensaje: error });
   }
+});
+
+//views de login
+const publicAccess = (req, res, next) => {
+  if (req.session.user) return res.redirect("/products");
+  next();
+};
+
+const privateAcess = (req, res, next) => {
+  if (!req.session.user) return res.redirect("/login");
+  next();
+};
+
+viewsRouter.get("/register", publicAccess, (req, res) => {
+  res.render("register");
+});
+
+viewsRouter.get("/", publicAccess, (req, res) => {
+  res.render("login");
+});
+
+viewsRouter.get("/profile", privateAcess, (req, res) => {
+  res.render("profile", {
+    user: req.session.user,
+  });
 });
 
 export default viewsRouter;

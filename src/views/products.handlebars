@@ -1,5 +1,13 @@
-<div class="position-relative">
-  <h1>Lista de Productos</h1>
+<div class="text-center">
+  <h1>Bienvenido {{user.name}}!</h1>
+  <h2>Rol: {{user.rol}}</h2>
+  <div class="d-flex justify-content-center align-items-center mt-3">
+    <a href="/api/sessions/logout" class="mr-2">
+      <button class="btn btn-primary">Cerrar Sesión</button>
+    </a>
+  </div>
+</div>
+  <h1 class="ml-2">Lista de Productos</h1>
 
   <div
     id="listaProductos"

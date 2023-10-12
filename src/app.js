@@ -9,6 +9,10 @@ import { cartsRouter } from "./routes/carts.router.js";
 import viewsRouter from "./routes/view.router.js";
 import mongoose from "mongoose";
 import MessageManager from "./dao/dbManagers/messages.manager.js";
+import MongoStore from "connect-mongo";
+import sessionsRouter from "./routes/sessions.router.js";
+import session from "express-session";
+import bodyParser from "body-parser";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -38,11 +42,26 @@ app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(
+  session({
+    store: MongoStore.create({
+      client: mongoose.connection.getClient(),
+      ttl: 3600,
+    }),
+    secret: "Coder47300Secret",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 /** Rutas */
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartsRouter);
 //app.use("/products", viewsRouter(socketServer));
+app.use("/api/sessions", sessionsRouter);
 app.use("/", viewsRouter);
 
 let messages = [];
