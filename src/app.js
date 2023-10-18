@@ -13,6 +13,8 @@ import MongoStore from "connect-mongo";
 import sessionsRouter from "./routes/sessions.router.js";
 import session from "express-session";
 import bodyParser from "body-parser";
+import passport from "passport";
+import initializePassport from "./config/passport.config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -56,6 +58,10 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 /** Rutas */
 app.use("/api/products", productRouter);

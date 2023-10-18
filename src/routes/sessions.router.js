@@ -1,60 +1,42 @@
 import { Router } from "express";
-import usersModel from "../dao/models/users.model.js";
+import passport from "passport";
 
 const router = Router();
 
-router.post("/register", async (req, res) => {
-  try {
-    const { first_name, last_name, email, age, password } = req.body;
-
-    const exists = await usersModel.findOne({ email });
-
-    if (exists) {
-      return res
-        .status(400)
-        .send({ status: "error", message: "El usuario ya existe" });
-    }
-
-    await usersModel.create({
-      first_name,
-      last_name,
-      email,
-      age,
-      password,
-      rol: "usuario",
-    });
-
-    res
-      .status(201)
-      .send({ status: "success", message: "Usuario registrado exitosamente" });
-  } catch (error) {
-    res.status(500).send({ status: "error", message: error.message });
+router.post(
+  "/register",
+  passport.authenticate("register", { failureRedirect: "fail-register" }),
+  async (req, res) => {
+    res.send({ status: "success", message: "user registered" });
   }
+);
+
+router.get("/fail-register", async (req, res) => {
+  res.status(500).send({ status: "error", message: "register fail" });
 });
 
-router.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const user = await usersModel.findOne({ email, password });
-
-    if (!user) {
+router.post(
+  "/login",
+  passport.authenticate("login", { failureRedirect: "fail-login" }),
+  async (req, res) => {
+    if (!req.user)
       return res
-        .status(400)
-        .send({ status: "error", message: "Credenciales incorrectas" });
-    }
+        .status(401)
+        .send({ status: "error", message: "incorrect credentials" });
 
     req.session.user = {
-      name: `${user.first_name} ${user.last_name}`,
-      email: user.email,
-      rol: user.rol,
-      age: user.age,
+      name: `${req.user.first_name} ${req.user.last_name}`,
+      email: req.user.email,
+      rol: req.user.rol,
+      age: req.user.age,
     };
 
-    res.send({ status: "success", message: "login Existoso" });
-  } catch (error) {
-    res.status(500).send({ status: "error", message: error.message });
+    res.send({ status: "success", message: "Login success" });
   }
+);
+
+router.get("/fail-login", async (req, res) => {
+  res.status(500).send({ status: "error", message: "login fail" });
 });
 
 router.get("/logout", (req, res) => {

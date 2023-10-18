@@ -19,7 +19,6 @@ class CartManager {
     } else {
       return {
         success: false,
-        mensaje: `No se encontro un Carrito con el Id ${id}`,
       };
     }
   }
@@ -30,10 +29,11 @@ class CartManager {
         products: [],
       };
       const result = await cartsModel.create(newCart);
+      const cartId = result._id;
       return {
         success: true,
         message: "Carrito creado correctamente",
-        cart: newCart,
+        cartId: cartId,
       };
     } catch (error) {
       return { success: false, message: error.message };
@@ -58,11 +58,9 @@ class CartManager {
           message: "El producto que se quiere agregar no existe",
         };
       }
-
       const indexProduct = cart.cart.products.findIndex(
-        (item) => item.product === productId
+        (item) => item.product.id === productId
       );
-
       if (indexProduct !== -1) {
         cart.cart.products[indexProduct].quantity++;
       } else {

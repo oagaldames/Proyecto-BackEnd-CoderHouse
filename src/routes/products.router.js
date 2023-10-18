@@ -11,7 +11,6 @@ router.get("/", async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const sort = req.query.sort || null;
     const category = req.query.category || {};
-    console.log(limit, page, sort, page, category);
 
     const products = await productManager.getAllProducts(
       limit,
@@ -61,7 +60,7 @@ router.post("/", uploader.array("Thumbnail"), async (req, res) => {
 
     res.status(201).send({
       message: "Producto creado correctamente",
-      cart: result,
+      product: result,
     });
   } catch (error) {
     res.status(500).send({

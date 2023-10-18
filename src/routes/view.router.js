@@ -79,7 +79,7 @@ const publicAccess = (req, res, next) => {
 };
 
 const privateAcess = (req, res, next) => {
-  if (!req.session.user) return res.redirect("/login");
+  if (!req.session.user) return res.redirect("/");
   next();
 };
 

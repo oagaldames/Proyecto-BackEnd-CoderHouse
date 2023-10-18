@@ -120,11 +120,12 @@ class ProductManager {
       if (existingProduct) {
         throw new Error("Ya existe el código de producto en otro producto");
       }
+
       const updatedProduct = await productsModel.updateOne(
         { _id: id },
         {
           ...dataUpdate,
-          $push: { thumbnail: pathFile },
+          $push: { thumbnail: { $each: pathFile } },
         }
       );
 
