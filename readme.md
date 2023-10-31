@@ -1,4 +1,4 @@
-# REFACTORIZACION DE LOGIN AL PROYECTO BACKEND
+# Segunda Practica Integradora
 
 ## Alumno: Omar A. Galdames
 
