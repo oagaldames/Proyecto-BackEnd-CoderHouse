@@ -10,11 +10,6 @@ const viewsRouter = Router();
 const productManager = new ProductManager();
 const cartManager = new CartManager();
 
-// viewsRouter.get("/", async (req, res) => {
-//   const products = await productManager.getProducts();
-//   res.render("home", { products });
-// });
-
 viewsRouter.get("/chat", (req, res) => {
   res.render("chat", {});
 });

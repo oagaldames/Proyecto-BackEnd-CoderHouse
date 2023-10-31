@@ -1,52 +1,83 @@
-import { Router } from "express";
-import passport from "passport";
+import Router from "./router.js";
+import Users from "../dao/dbManagers/users.manager.js";
+import { accessRoles, passportStrategiesEnum } from "../config/enums.js";
+import { createHash, generateToken, isValidPassword } from "../utils.js";
 
-const router = Router();
-
-router.post(
-  "/register",
-  passport.authenticate("register", { failureRedirect: "fail-register" }),
-  async (req, res) => {
-    res.send({ status: "success", message: "user registered" });
+class SessionsRouter extends Router {
+  constructor() {
+    super();
+    this.usersManager = new Users();
   }
-);
-
-router.get("/fail-register", async (req, res) => {
-  res.status(500).send({ status: "error", message: "register fail" });
-});
-
-router.post(
-  "/login",
-  passport.authenticate("login", { failureRedirect: "fail-login" }),
-  async (req, res) => {
-    if (!req.user)
-      return res
-        .status(401)
-        .send({ status: "error", message: "incorrect credentials" });
-
-    req.session.user = {
-      name: `${req.user.first_name} ${req.user.last_name}`,
-      email: req.user.email,
-      rol: req.user.rol,
-      age: req.user.age,
-    };
-
-    res.send({ status: "success", message: "Login success" });
+  init() {
+    this.post(
+      "/login",
+      [accessRoles.PUBLIC],
+      passportStrategiesEnum.NOTHING,
+      this.login
+    );
+    this.post(
+      "/register",
+      [accessRoles.PUBLIC],
+      passportStrategiesEnum.NOTHING,
+      this.register
+    );
+    this.get(
+      "/current",
+      [accessRoles.USER],
+      passportStrategiesEnum.JWT,
+      this.current
+    );
   }
-);
+  async login(req, res) {
+    const { email, password } = req.body;
+    try {
+      const user = await this.usersManager.getByEmail(email);
+      if (!user) {
+        return res.sendClientError("incorrect credentials");
+      }
+      const comparePassword = isValidPassword(password, user.password);
+      if (!comparePassword) {
+        return res.sendClientError("incorrect credentials");
+      }
 
-router.get("/fail-login", async (req, res) => {
-  res.status(500).send({ status: "error", message: "login fail" });
-});
+      delete user.password;
+      const accessToken = generateToken(user);
+      res.sendSuccess({ accessToken });
+    } catch (error) {
+      res.sendServerError(error.message);
+    }
+  }
+  async register(req, res) {
+    const { first_name, last_name, role, email, password } = req.body;
+    try {
+      if (!first_name || !last_name || !role || !email || !password) {
+        return res.sendClientError("incomplete values");
+      }
 
-router.get("/logout", (req, res) => {
-  req.session.destroy((error) => {
-    if (error)
-      return res
-        .status(500)
-        .send({ status: "error", error: "Falla en logout" });
-    res.redirect("/");
-  });
-});
+      const exists = await this.usersManager.getByEmail(email);
 
-export default router;
+      if (exists) {
+        return res.sendClientError("user already exists");
+      }
+      const hashedPassword = createHash(password);
+      const newUser = {
+        ...req.body,
+      };
+      newUser.password = hashedPassword;
+      const result = await this.usersManager.save(newUser);
+      res.sendSuccess(result);
+    } catch (error) {
+      res.sendServerError(error.message);
+    }
+  }
+
+  async current(req, res) {
+    try {
+      res.sendSuccess(req.user);
+    } catch (error) {
+      res.sendServerError(error.message);
+    }
+  }
+}
+
+export default SessionsRouter;

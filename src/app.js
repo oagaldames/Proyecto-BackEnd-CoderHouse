@@ -10,7 +10,7 @@ import viewsRouter from "./routes/view.router.js";
 import mongoose from "mongoose";
 import MessageManager from "./dao/dbManagers/messages.manager.js";
 import MongoStore from "connect-mongo";
-import sessionsRouter from "./routes/sessions.router.js";
+import SessionsRouter from "./routes/sessions.router.js";
 import session from "express-session";
 import bodyParser from "body-parser";
 import passport from "passport";
@@ -20,6 +20,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 const messagerManager = new MessageManager();
+const sessionsRouter = new SessionsRouter();
 
 // Iniciar el servidor en el puerto 8080
 const PORT = 8080;
@@ -47,27 +48,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(
-  session({
-    store: MongoStore.create({
-      client: mongoose.connection.getClient(),
-      ttl: 3600,
-    }),
-    secret: "Coder47300Secret",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
-
 initializePassport();
 app.use(passport.initialize());
-app.use(passport.session());
 
 /** Rutas */
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartsRouter);
 //app.use("/products", viewsRouter(socketServer));
-app.use("/api/sessions", sessionsRouter);
+app.use("/api/sessions", sessionsRouter.getRouter());
 app.use("/", viewsRouter);
 
 let messages = [];

@@ -1,76 +1,28 @@
 import passport from "passport";
+import jwt from "passport-jwt";
 import local from "passport-local";
-import usersModel from "../dao/models/users.model.js";
-import { createHash, isValidPassword } from "../utils.js";
-
-const LocalStrategy = local.Strategy;
+import { PRIVATE_KEY_JWT } from "./contants.js";
+import { passportStrategiesEnum } from "./enums.js";
+const JWTStrategy = jwt.Strategy;
+const ExtractJWT = jwt.ExtractJwt;
 
 const initializePassport = () => {
   passport.use(
-    "register",
-    new LocalStrategy(
+    passportStrategiesEnum.JWT,
+    new JWTStrategy(
       {
-        passReqToCallback: true,
-        usernameField: "email",
+        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+        secretOrKey: PRIVATE_KEY_JWT,
       },
-      async (req, username, password, done) => {
+      async (jwt_payload, done) => {
         try {
-          const { first_name, last_name, age } = req.body;
-          const exists = await usersModel.findOne({ email: username });
-
-          if (exists) {
-            return done(null, false);
-          }
-
-          const user = await usersModel.create({
-            first_name,
-            last_name,
-            email: username,
-            age,
-            rol: "usuario",
-            password: createHash(password),
-          });
-
-          return done(null, user);
+          return done(null, jwt_payload.user);
         } catch (error) {
-          return done(`Error al registrar el usuario ${error.message}`);
+          return done(error);
         }
       }
     )
   );
-
-  passport.use(
-    "login",
-    new LocalStrategy(
-      {
-        usernameField: "email",
-      },
-      async (username, password, done) => {
-        try {
-          const user = await usersModel.findOne({ email: username });
-
-          if (!user) {
-            return done(null, false);
-          }
-
-          if (!isValidPassword(user, password)) return done(null, false);
-
-          return done(null, user);
-        } catch (error) {
-          return done(`Error al loguear el usuario ${error.message}`);
-        }
-      }
-    )
-  );
-
-  passport.serializeUser((user, done) => {
-    done(null, user._id);
-  });
-
-  passport.deserializeUser(async (id, done) => {
-    const user = await usersModel.findById(id);
-    done(null, user);
-  });
 };
 
 export default initializePassport;

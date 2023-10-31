@@ -15,7 +15,6 @@ class ProductManager {
   }
 
   async getAllProducts(limit, page, sort, category) {
-    console.log(limit, page, sort, page, category);
     const options = {
       page: page,
       limit: limit,
