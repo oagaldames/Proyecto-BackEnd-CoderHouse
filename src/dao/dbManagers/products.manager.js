@@ -15,48 +15,35 @@ class ProductManager {
   }
 
   async getAllProducts(limit, page, sort, category) {
+    console.log(sort);
     const options = {
       page: page,
       limit: limit,
-      sort: {},
+      sort: sort,
       customLabels: {
         docs: "payload",
         totalDocs: "totalProducts",
         page: "currentPage",
       },
     };
-    try {
-      if (sort === "asc" || sort === "desc") {
-        options.sort = { price: sort === "asc" ? 1 : -1 };
-      }
 
-      let products = {};
+    let products = {};
 
-      if (Object.keys(category).length === 0) {
-        products = await productsModel.paginate({}, options);
-      } else {
-        products = await productsModel.paginate({ category }, options);
-      }
-      return {
-        status: "success",
-        payload: products.payload,
-        totalProducts: products.totalProducts,
-        totalPages: products.totalPages,
-        currentPage: products.currentPage,
-        hasNextPage: products.hasNextPage,
-        hasPrevPage: products.hasPrevPage,
-      };
-    } catch (error) {
-      return {
-        status: "error",
-        payload: products.payload,
-        totalProducts: products.totalProducts,
-        totalPages: products.totalPages,
-        currentPage: products.currentPage,
-        hasNextPage: products.hasNextPage,
-        hasPrevPage: products.hasPrevPage,
-      };
+    if (Object.keys(category).length === 0) {
+      products = await productsModel.paginate({}, options);
+    } else {
+      products = await productsModel.paginate({ category }, options);
     }
+
+    return {
+      status: "success",
+      payload: products.payload,
+      totalProducts: products.totalProducts,
+      totalPages: products.totalPages,
+      currentPage: products.currentPage,
+      hasNextPage: products.hasNextPage,
+      hasPrevPage: products.hasPrevPage,
+    };
   }
 
   async getProductById(id) {
@@ -74,24 +61,6 @@ class ProductManager {
 
   async addProduct(product, pathFile) {
     try {
-      if (
-        !product.title ||
-        !product.description ||
-        !product.code ||
-        !product.price ||
-        !product.stock ||
-        !product.category
-      ) {
-        throw new Error("Faltan campos son obligatorios.");
-      }
-
-      const existingProduct = await productsModel.findOne({
-        code: product.code,
-      });
-      if (existingProduct) {
-        throw new Error("Ya existe el producto.");
-      }
-
       const result = await productsModel.create({
         thumbnail: pathFile,
         ...product,
@@ -103,22 +72,28 @@ class ProductManager {
       return error.message;
     }
   }
-
+  async getProductByIdCode(code, id) {
+    const existingProduct = await productsModel.findOne({
+      code: code,
+      _id: { $ne: id },
+    });
+    return existingProduct;
+  }
   async updateProduct(id, dataUpdate, pathFile) {
     try {
-      const existId = await productsModel.findOne({ _id: id });
+      // const existId = await productsModel.findOne({ _id: id });
 
-      if (!existId) {
-        throw new Error(`No se encontró un producto con el ID ${id}`);
-      }
-      const existingProduct = await productsModel.findOne({
-        code: dataUpdate.code,
-        _id: { $ne: id },
-      });
+      // if (!existId) {
+      //   throw new Error(`No se encontró un producto con el ID ${id}`);
+      // }
+      // const existingProduct = await productsModel.findOne({
+      //   code: dataUpdate.code,
+      //   _id: { $ne: id },
+      // });
 
-      if (existingProduct) {
-        throw new Error("Ya existe el código de producto en otro producto");
-      }
+      // if (existingProduct) {
+      //   throw new Error("Ya existe el código de producto en otro producto");
+      // }
 
       const updatedProduct = await productsModel.updateOne(
         { _id: id },
@@ -135,18 +110,8 @@ class ProductManager {
   }
 
   async deleteProduct(id) {
-    try {
-      const existId = await productsModel.findOne({ _id: id });
-
-      if (existId) {
-        const result = await productsModel.deleteOne({ _id: id });
-        return result;
-      } else {
-        throw new Error(`No se encontro un Producto con el ID ${id}`);
-      }
-    } catch (error) {
-      return error.message;
-    }
+    const result = await productsModel.deleteOne({ _id: id });
+    return result;
   }
 }
 

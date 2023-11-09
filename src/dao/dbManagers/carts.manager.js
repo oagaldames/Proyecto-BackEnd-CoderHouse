@@ -11,33 +11,13 @@ class CartManager {
 
   async getCartById(id) {
     const cart = await cartsModel.findOne({ _id: id });
-    if (cart) {
-      return {
-        success: true,
-        cart: cart,
-      };
-    } else {
-      return {
-        success: false,
-      };
-    }
+    return cart;
   }
 
-  async addCart() {
-    try {
-      const newCart = {
-        products: [],
-      };
-      const result = await cartsModel.create(newCart);
-      const cartId = result._id;
-      return {
-        success: true,
-        message: "Carrito creado correctamente",
-        cartId: cartId,
-      };
-    } catch (error) {
-      return { success: false, message: error.message };
-    }
+  async addCart(newCart) {
+    const result = await cartsModel.create(newCart);
+    const cartId = result._id;
+    return cartId;
   }
 
   async addProductsToCart(cartId, productId, quantity) {
