@@ -6,6 +6,8 @@ import { Server } from "socket.io";
 import handlebars from "express-handlebars";
 import { productRouter } from "./routes/products.router.js";
 import { cartsRouter } from "./routes/carts.router.js";
+import { usersRouter } from "./routes/users.router.js";
+
 import viewsRouter from "./routes/view.router.js";
 import mongoose from "mongoose";
 import MessageManager from "./dao/dbManagers/messages.manager.js";
@@ -35,9 +37,8 @@ try {
   console.log("DB connected");
 } catch (error) {
   console.log(error.message);
+  user;
 }
-
-const socketServer = new Server(httpServer);
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
@@ -54,28 +55,5 @@ app.use(passport.initialize());
 /** Rutas */
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartsRouter);
-//app.use("/products", viewsRouter(socketServer));
-app.use("/api/sessions", sessionsRouter.getRouter());
+app.use("/api/users", usersRouter);
 app.use("/", viewsRouter);
-
-let messages = [];
-socketServer.on("connection", (socket) => {
-  console.log("Nuevo cliente conectado");
-
-  socket.on("authenticate", () => {
-    socket.emit("messageLogs", messages);
-  });
-  try {
-    socket.on("message", async (data) => {
-      messages.push(data);
-      socketServer.emit("messageLogs", messages);
-      console.log(data);
-
-      const result = await messagerManager.saveMessage(data);
-      console.log(result);
-    });
-  } catch (error) {
-    console.log("Error al guardar mensaje");
-  }
-  socket.broadcast.emit("userConnected", { user: "Nuevo usuario conectado" });
-});

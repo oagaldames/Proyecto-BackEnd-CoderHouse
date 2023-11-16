@@ -1,15 +1,23 @@
 import { usersModel } from "../models/users.model.js";
 
-export default class Users {
-  constructor() {}
-
-  getByEmail = async (email) => {
-    const user = await usersModel.findOne({ email }).lean();
-    return user;
+export default class UsersDao {
+  getUsers = async () => {
+    const result = await usersModel.find();
+    return result;
   };
 
-  save = async (user) => {
+  getUserById = async (id) => {
+    const result = await usersModel.findById(id);
+    return result;
+  };
+
+  createUser = async (user) => {
     const result = await usersModel.create(user);
+    return result;
+  };
+
+  updateUser = async (id, user) => {
+    const result = await usersModel.findByIdAndUpdate(id, user);
     return result;
   };
 }
